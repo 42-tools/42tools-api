@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  campus: one
+  user: one
+  primary: false
+
+two:
+  campus: two
+  user: two
+  primary: false
