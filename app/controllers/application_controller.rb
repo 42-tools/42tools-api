@@ -41,7 +41,7 @@ private
   end
 
   def request_logger
-    return if params[:controller] == 'auths'
+    return if params[:controller].match(%r(/auths$))
 
     apps_token.logs.create!(data: {
       controller: params[:controller],
