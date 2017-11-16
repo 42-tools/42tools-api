@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       resources :friends, controller: :friends_users, only: %i(index show create destroy)
 
       resources :logs
+      resources :jobs, only: %i(index show update destroy)
     end
   end
 end

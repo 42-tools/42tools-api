@@ -1,5 +1,5 @@
 class UserJob < ApplicationJob
-  queue_as :default
+  queue_as :user
 
   def perform(user_id = nil, user_payload = nil)
     if user_payload

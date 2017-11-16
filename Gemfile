@@ -32,8 +32,9 @@ group :production do
   gem 'pg', '~> 0.21.0'
 
   gem 'redis-rails'
-  gem 'resque', '~> 1.27', '>= 1.27.4'
-  gem 'resque-web', '~> 0.0.12', require: 'resque_web'
+  gem 'delayed_job', '~> 4.1', '>= 4.1.3'
+  gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.2'
+  gem 'daemons', '~> 1.2', '>= 1.2.5'
 end
 
 group :development, :test do

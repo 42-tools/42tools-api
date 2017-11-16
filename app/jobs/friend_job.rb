@@ -1,5 +1,5 @@
 class FriendJob < ApplicationJob
-  queue_as :default
+  queue_as :user
 
   def perform(owner_id, friend_id)
     user_payload = Intra42.instance.get("/v2/users/#{friend_id}")
