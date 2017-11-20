@@ -23,6 +23,13 @@ class V1::FriendsGroupsUsersController < ApplicationController
     end
 
     friends_user = current_user.friends_users.find_by(friend_id: friend_id)
+
+    unless friends_user
+      FriendsGroupsUserJob.perform_later(current_user.id, @friends_group.id, friend_id)
+
+      return render json: {}, status: :processing
+    end
+
     @friends_groups_user = @friends_group.friends_groups_users.find_or_initialize_by(friends_user: friends_user)
     @friends_groups_user_is_new_record = @friends_groups_user.new_record?
 

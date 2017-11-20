@@ -94,5 +94,7 @@ class UserJob < ApplicationJob
 
       projects_user.projects_users_cursus.where(cursus_id: projects_user.projects_users_cursu_ids - data.cursus_ids).destroy_all
     end
+
+    user
   end
 end

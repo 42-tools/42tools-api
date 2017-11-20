@@ -22,7 +22,7 @@ class V1::FriendsUsersController < ApplicationController
     end
 
     unless User.exists?(friend_id)
-      FriendJob.perform_later(current_user.id, friend_id)
+      FriendsUserJob.perform_later(current_user.id, friend_id)
 
       return render json: {}, status: :processing
     end
