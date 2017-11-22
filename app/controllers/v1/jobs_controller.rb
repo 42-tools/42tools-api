@@ -40,10 +40,6 @@ private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_job
-    @job = Delayed::Job.find_by(id: params[:id])
-
-    render json: {
-      error: 'record not found'
-    }, status: :not_found unless @job
+    @job = Delayed::Job.find(id: params[:id])
   end
 end

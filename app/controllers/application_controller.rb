@@ -2,6 +2,8 @@ class ApplicationController < ActionController::API
   before_action :authenticate_app!
   before_action :request_logger
 
+  include CustomErrorsConcern
+
 private
 
   def apps_token

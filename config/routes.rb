@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       resource :auth, only: %i(create)
       resources :apps_tokens, only: %i(index show)
       resources :apps, only: %i(index show)
+      resources :coalitions_users, only: %i(index show)
+      resources :coalitions, only: %i(index show)
       resources :projects_users_cursus, only: %i(index show)
       resources :projects_users, only: %i(index show)
       resources :projects, only: %i(index show)
@@ -28,4 +30,6 @@ Rails.application.routes.draw do
       resources :jobs, only: %i(index show update destroy)
     end
   end
+
+  match :'*path', controller: :application, action: :route_not_found, via: :all
 end

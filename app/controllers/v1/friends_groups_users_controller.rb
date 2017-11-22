@@ -49,18 +49,10 @@ private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_friends_group
-    @friends_group = current_user.friends_groups.find_by(id: params[:friends_group_id])
-
-    render json: {
-      error: 'record not found'
-    }, status: :not_found unless @friends_group
+    @friends_group = current_user.friends_groups.find(id: params[:friends_group_id])
   end
 
   def set_friends_groups_user
-    @friends_groups_user = @friends_group.friends_groups_users.joins(:friends_user).find_by(friends_users: { friend_id: params[:id] })
-
-    render json: {
-      error: 'record not found'
-    }, status: :not_found unless @friends_groups_user
+    @friends_groups_user = @friends_group.friends_groups_users.joins(:friends_user).find(friends_users: { friend_id: params[:id] })
   end
 end
