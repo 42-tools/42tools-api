@@ -27,6 +27,9 @@ rails g scaffold project name:string slug:string parent_id:bigint:index
 rails g scaffold projects_user project:references user:references occurrence:integer final_mark:integer status:string validated:boolean
 rails g scaffold projects_users_cursus projects_user:references cursus:references --force-plural
 
+rails g scaffold coalitions name:string slug:string image_url:text color:string score:integer master:references
+rails g scaffold coalitions_users coalition:references user:references
+
 rails g scaffold app name:string
 rails g scaffold apps_token app:references user:references jwt:text
 

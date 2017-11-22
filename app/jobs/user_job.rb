@@ -95,6 +95,24 @@ class UserJob < ApplicationJob
       projects_user.projects_users_cursus.where(cursus_id: projects_user.projects_users_cursu_ids - data.cursus_ids).destroy_all
     end
 
+    # Coalitions
+
+    coalitions_users_payload = Intra42.instance.get("/v2/users/#{user_id}/coalitions_users")
+
+    if coalitions_users_payload.success?
+      coalitions_users_data = coalitions_users_payload.body
+
+      coalitions_users_data.each do |data|
+        coalition = Coalition.find_or_create_by!(id: data.coalition_id)
+
+        coalitions_user = user.coalitions_users.find_or_initialize_by(id: data.id)
+        coalitions_user.coalition = coalition
+        coalitions_user.save!
+      end
+
+      user.coalitions_users.where(id: user.coalitions_user_ids - coalitions_users_data.map(&:id)).destroy_all
+    end
+
     user
   end
 end

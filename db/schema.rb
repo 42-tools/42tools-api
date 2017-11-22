@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171115205300) do
+ActiveRecord::Schema.define(version: 20171121233534) do
 
   create_table "apps", force: :cascade do |t|
     t.string "name"
@@ -41,6 +41,27 @@ ActiveRecord::Schema.define(version: 20171115205300) do
     t.datetime "updated_at", null: false
     t.index ["campus_id"], name: "index_campus_users_on_campus_id"
     t.index ["user_id"], name: "index_campus_users_on_user_id"
+  end
+
+  create_table "coalitions", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.text "image_url"
+    t.string "color"
+    t.integer "score"
+    t.integer "master_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["master_id"], name: "index_coalitions_on_master_id"
+  end
+
+  create_table "coalitions_users", force: :cascade do |t|
+    t.integer "coalition_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coalition_id"], name: "index_coalitions_users_on_coalition_id"
+    t.index ["user_id"], name: "index_coalitions_users_on_user_id"
   end
 
   create_table "cursus", force: :cascade do |t|
