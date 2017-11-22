@@ -1,5 +1,5 @@
 class V1::LogsController < ApplicationController
-  before_action :set_log, only: [:show]
+  before_action :set_log, only: %i(show)
 
   # GET /logs
   def index

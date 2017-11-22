@@ -1,5 +1,5 @@
 class V1::CursusUsersController < ApplicationController
-  before_action :set_cursus_user, only: %i(:show)
+  before_action :set_cursus_user, only: %i(show)
 
   # GET /cursus_users
   def index

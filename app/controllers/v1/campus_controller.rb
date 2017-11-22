@@ -1,5 +1,5 @@
 class V1::CampusController < ApplicationController
-  before_action :set_campus, only: %i(:show)
+  before_action :set_campus, only: %i(show)
 
   # GET /campus
   def index

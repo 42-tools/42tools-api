@@ -1,5 +1,5 @@
 class V1::CursusController < ApplicationController
-  before_action :set_cursu, only: %i(:show)
+  before_action :set_cursu, only: %i(show)
 
   # GET /cursus
   def index

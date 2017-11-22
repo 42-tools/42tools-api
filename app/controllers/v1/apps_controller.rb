@@ -1,5 +1,5 @@
 class V1::AppsController < ApplicationController
-  before_action :set_app, only: %i(:show)
+  before_action :set_app, only: %i(show)
 
   # GET /apps
   def index

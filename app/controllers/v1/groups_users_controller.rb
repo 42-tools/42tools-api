@@ -1,5 +1,5 @@
 class V1::GroupsUsersController < ApplicationController
-  before_action :set_groups_user, only: %i(:show)
+  before_action :set_groups_user, only: %i(show)
 
   # GET /groups_users
   def index

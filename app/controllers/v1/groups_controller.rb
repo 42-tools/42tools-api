@@ -1,5 +1,5 @@
 class V1::GroupsController < ApplicationController
-  before_action :set_group, only: %i(:show)
+  before_action :set_group, only: %i(show)
 
   # GET /groups
   def index

@@ -1,5 +1,5 @@
 class V1::ProjectsController < ApplicationController
-  before_action :set_project, only: %i(:show)
+  before_action :set_project, only: %i(show)
 
   # GET /projects
   def index

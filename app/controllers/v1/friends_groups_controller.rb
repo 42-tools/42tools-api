@@ -1,6 +1,6 @@
 class V1::FriendsGroupsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_friends_group, only: [:show, :update, :destroy]
+  before_action :set_friends_group, only: %i(show update destroy)
 
   # GET /friends_groups
   def index

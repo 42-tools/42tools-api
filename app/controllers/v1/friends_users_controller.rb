@@ -1,6 +1,6 @@
 class V1::FriendsUsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_friends_user, only: [:show, :destroy]
+  before_action :set_friends_user, only: %i(show destroy)
 
   # GET /friends_users
   def index
