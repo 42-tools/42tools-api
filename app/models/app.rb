@@ -1,3 +1,3 @@
 class App < ApplicationRecord
-  has_many :apps_tokens
+  has_many :apps_tokens, dependent: :destroy
 end
