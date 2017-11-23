@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
       resources :logs
       resources :jobs, only: %i(index show update destroy)
+      resources :routes, only: %i(index)
     end
   end
 
