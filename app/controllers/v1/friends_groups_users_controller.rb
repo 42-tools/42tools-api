@@ -49,10 +49,10 @@ private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_friends_group
-    @friends_group = current_user.friends_groups.find(id: params[:friends_group_id])
+    @friends_group = current_user.friends_groups.find(params[:friends_group_id])
   end
 
   def set_friends_groups_user
-    @friends_groups_user = @friends_group.friends_groups_users.joins(:friends_user).find(friends_users: { friend_id: params[:id] })
+    @friends_groups_user = @friends_group.friends_groups_users.joins(:friends_user).find_by!(friends_users: { friend_id: params[:id] })
   end
 end

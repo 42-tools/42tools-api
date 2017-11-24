@@ -40,7 +40,7 @@ private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_friends_group
-    @friends_group = current_user.friends_groups.find(id: params[:id])
+    @friends_group = current_user.friends_groups.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.

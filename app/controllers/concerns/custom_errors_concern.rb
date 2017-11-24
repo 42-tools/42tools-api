@@ -5,8 +5,8 @@ module CustomErrorsConcern
     skip_before_action :authenticate_app!, only: %i(route_not_found)
     skip_before_action :request_logger, only: %i(route_not_found)
 
-    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from Exception, with: :internal_server_error
+    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   end
 
   def route_not_found

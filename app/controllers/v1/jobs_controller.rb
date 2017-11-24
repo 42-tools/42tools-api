@@ -40,6 +40,6 @@ private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_job
-    @job = Delayed::Job.find(id: params[:id])
+    @job = Delayed::Job.find(params[:id])
   end
 end
