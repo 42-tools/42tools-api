@@ -42,10 +42,11 @@ class Intra42
     $intra42_instance ||= Intra42.new(uid: Secrets.get(:intra42, :client_uid), secret: Secrets.get(:intra42, :client_secret))
   end
 
-  def initialize(uid: nil, secret: nil, access_token: nil)
+  def initialize(uid: nil, secret: nil, access_token: nil, refresh_token: nil)
     @uid = uid
     @secret = secret
     @access_token = access_token
+    @refresh_token = refresh_token
   end
 
   def get(path, params = {})
@@ -85,10 +86,15 @@ private
   end
 
   def token(force_refresh: false)
-    @token = if @token.nil?
+    @token = if @token.nil? || (!@token.refresh_token && (@token.expired? || force_refresh))
                oauth2_client = OAuth2::Client.new(@uid, @secret, site: 'https://api.intra.42.fr')
-               @access_token.nil? ? oauth2_client.client_credentials.get_token : OAuth2::AccessToken.from_hash(oauth2_client, access_token: @access_token)
-             elsif !@access_token && (@token.expired? || force_refresh)
+
+               (@access_token ?
+                 OAuth2::AccessToken.from_hash(oauth2_client, access_token: @access_token, refresh_token: @refresh_token)
+               :
+                 oauth2_client.client_credentials.get_token
+               )
+             elsif (@token.refresh_token || @refresh_token) && (@token.expired? || force_refresh)
                @token.refresh!
              else
                @token
