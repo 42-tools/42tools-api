@@ -86,7 +86,7 @@ private
   end
 
   def token(force_refresh: false)
-    @token = if @token.nil? || (!@token.refresh_token && (@token.expired? || force_refresh))
+    @token = if !@token || (!@token.refresh_token && (@token.expired? || force_refresh))
                oauth2_client = OAuth2::Client.new(@uid, @secret, site: 'https://api.intra.42.fr')
 
                (@access_token ?
@@ -94,7 +94,7 @@ private
                :
                  oauth2_client.client_credentials.get_token
                )
-             elsif (@token.refresh_token || @refresh_token) && (@token.expired? || force_refresh)
+             elsif @token.refresh_token && (@token.expired? || force_refresh)
                @token.refresh!
              else
                @token

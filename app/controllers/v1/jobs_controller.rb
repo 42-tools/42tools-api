@@ -12,7 +12,7 @@ class V1::JobsController < ApplicationController
 
   # PATCH/PUT /jobs/1
   def update
-    if !@job.locked_at && !@job.locked_by
+    if @job.failed_at
       if @job.update(run_at: Time.current, failed_at: nil, last_error: nil)
         render :show
       else
@@ -27,7 +27,7 @@ class V1::JobsController < ApplicationController
 
   # DELETE /jobs/1
   def destroy
-    if !@job.locked_at && !@job.locked_by
+    if @job.failed_at
       @job.destroy
     else
       render json: {

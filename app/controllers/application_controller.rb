@@ -17,7 +17,7 @@ private
 
     data = JsonWebToken.decode(credentials)&.first
 
-    return if data.nil?
+    return unless data
 
     AppsToken.find_by_id(data['app_token_id'])
   end
@@ -33,13 +33,13 @@ private
   def authenticate_app!
     render json: {
       error: 'Invalid authentication credentials'
-    }, status: :unauthorized if current_app.nil?
+    }, status: :unauthorized unless current_app
   end
 
   def authenticate_user!
     render json: {
       error: 'Invalid authentication credentials'
-    }, status: :unauthorized if current_user.nil?
+    }, status: :unauthorized unless current_user
   end
 
   def request_logger
