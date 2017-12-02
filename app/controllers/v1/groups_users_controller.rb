@@ -5,7 +5,7 @@ class V1::GroupsUsersController < ApplicationController
   def index
     @groups_users = GroupsUser.all
 
-    render json: @groups_users
+    paginate json: @groups_users
   end
 
   # GET /groups_users/1

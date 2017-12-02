@@ -5,7 +5,7 @@ class V1::FriendsGroupsUsersController < ApplicationController
 
   # GET /friends_groups_users
   def index
-    @friends_groups_users = @friends_group.friends_groups_users
+    @friends_groups_users = paginate(@friends_group.friends_groups_users)
   end
 
   # GET /friends_groups_users/1

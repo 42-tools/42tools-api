@@ -26,6 +26,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'oauth2', '~> 1.4'
 # gem 'rbnacl', '~> 5.0'
 gem 'rails_admin', '~> 1.2'
+gem 'kaminari', '~> 1.1', '>= 1.1.1'
+gem 'api-pagination', '~> 4.6', '>= 4.6.3'
 
 group :production do
   # Use postgresql as the database for Active Record

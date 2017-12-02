@@ -5,7 +5,7 @@ class V1::AppsController < ApplicationController
   def index
     @apps = App.all
 
-    render json: @apps
+    paginate json: @apps
   end
 
   # GET /apps/1

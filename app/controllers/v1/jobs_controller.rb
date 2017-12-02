@@ -3,7 +3,7 @@ class V1::JobsController < ApplicationController
 
   # GET /jobs
   def index
-    @jobs = Delayed::Job.all
+    @jobs = paginate(Delayed::Job.all)
   end
 
   # GET /jobs/1

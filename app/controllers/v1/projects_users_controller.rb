@@ -5,7 +5,7 @@ class V1::ProjectsUsersController < ApplicationController
   def index
     @projects_users = ProjectsUser.all
 
-    render json: @projects_users
+    paginate json: @projects_users
   end
 
   # GET /projects_users/1

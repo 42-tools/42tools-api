@@ -5,7 +5,7 @@ class V1::LogsController < ApplicationController
   def index
     @logs = Log.all
 
-    render json: @logs
+    paginate json: @logs
   end
 
   # GET /logs/1

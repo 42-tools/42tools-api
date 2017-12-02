@@ -5,7 +5,7 @@ class V1::CoalitionsUsersController < ApplicationController
   def index
     @coalitions_users = CoalitionsUser.all
 
-    render json: @coalitions_users
+    paginate json: @coalitions_users
   end
 
   # GET /coalitions_users/1

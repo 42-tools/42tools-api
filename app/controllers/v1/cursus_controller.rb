@@ -5,7 +5,7 @@ class V1::CursusController < ApplicationController
   def index
     @cursus = Cursus.all
 
-    render json: @cursus
+    paginate json: @cursus
   end
 
   # GET /cursus/1
