@@ -14,8 +14,8 @@ class UserJob < ApplicationJob
 
     # User
 
-    user = User.find_or_create_by!(id: user_id)
-    user.update(
+    user = User.find_or_initialize_by(id: user_id)
+    user.assign_attributes(
       login:      user_data.login,      email:     user_data.email,
       first_name: user_data.first_name, last_name: user_data.last_name,
       phone:      user_data.phone,      image_url: user_data.image_url,
@@ -23,6 +23,7 @@ class UserJob < ApplicationJob
       wallet:     user_data.wallet,     staff:     user_data.staff?,
       correction_point: user_data.correction_point
     )
+    user.save!
 
     # Groups
 
@@ -35,7 +36,7 @@ class UserJob < ApplicationJob
         group = Group.find_or_create_by!(id: data.group_id)
 
         groups_user = user.groups_users.find_or_initialize_by(id: data.id)
-        groups_user.group = group
+        groups_user.assign_attributes(group: group)
         groups_user.save!
       end
 
@@ -49,7 +50,7 @@ class UserJob < ApplicationJob
       cursus.update(name: data.cursus.name, slug: data.cursus.slug)
 
       cursus_user = user.cursus_users.find_or_initialize_by(id: data.id)
-      cursus_user.cursus = cursus
+      cursus_user.assign_attributes(cursus: cursus)
       cursus_user.save!
     end
 
@@ -66,7 +67,7 @@ class UserJob < ApplicationJob
       campus = Campus.find_or_create_by!(id: data.campus_id)
 
       campus_user = user.campus_users.find_or_initialize_by(id: data.id)
-      campus_user.campus = campus
+      campus_user.assign_attributes(campus: campus)
       campus_user.save!
 
       campus_user.update(primary: data.is_primary)
@@ -81,7 +82,7 @@ class UserJob < ApplicationJob
       project.update(name: data.project.name, slug: data.project.slug)
 
       projects_user = user.projects_users.find_or_initialize_by(id: data.id)
-      projects_user.project = project
+      projects_user.assign_attributes(project: project)
       projects_user.save!
 
       projects_user.update(occurrence: data.occurrence, final_mark: data.final_mark, status: data.status, validated: data.validated?)
@@ -106,7 +107,7 @@ class UserJob < ApplicationJob
         coalition = Coalition.find_or_create_by!(id: data.coalition_id)
 
         coalitions_user = user.coalitions_users.find_or_initialize_by(id: data.id)
-        coalitions_user.coalition = coalition
+        coalitions_user.assign_attributes(coalition: coalition)
         coalitions_user.save!
       end
 

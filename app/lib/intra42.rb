@@ -56,7 +56,8 @@ class Intra42
     return build_response(response) unless response.status.in?(200..299)
 
     if block_given?
-      yield JSON.parse(response.body, object_class: DataStruct)
+      continue = yield JSON.parse(response.body, object_class: DataStruct)
+      return build_response(response, status: next_page ? :partial : :success) unless continue
     else
       data = JSON.parse(response.body, object_class: DataStruct)
     end
@@ -66,7 +67,8 @@ class Intra42
       return build_response(response, status: :partial, body: data) unless response.status.in?(200..299)
 
       if block_given?
-        yield JSON.parse(response.body, object_class: DataStruct)
+        continue = yield JSON.parse(response.body, object_class: DataStruct)
+        return build_response(response, status: next_page ? :partial : :success) unless continue
       else
         data += JSON.parse(response.body, object_class: DataStruct)
       end
