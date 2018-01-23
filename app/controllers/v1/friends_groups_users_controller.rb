@@ -14,14 +14,7 @@ class V1::FriendsGroupsUsersController < ApplicationController
 
   # POST /friends_groups_users
   def create
-    begin
-      friend_id = params.require(:user_id)
-    rescue ActionController::ParameterMissing => e
-      return render json: {
-        error: e.message
-      }, status: :bad_request
-    end
-
+    friend_id = params.require(:user_id)
     friends_user = current_user.friends_users.find_by(friend_id: friend_id)
 
     unless friends_user

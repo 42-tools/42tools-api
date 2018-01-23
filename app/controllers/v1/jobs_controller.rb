@@ -1,4 +1,5 @@
 class V1::JobsController < ApplicationController
+  before_action :require_app_admin!
   before_action :set_job, only: %i(show update destroy)
 
   # GET /jobs

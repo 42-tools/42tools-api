@@ -5,17 +5,13 @@ class V1::AuthsController < ApplicationController
     begin
       client_credentials = Intra42.new(access_token: params.require(:access_token))
       payload = client_credentials.get('/v2/me')
-    rescue ActionController::ParameterMissing => e
-      return render json: {
-        error: e.message
-      }, status: :bad_request
     rescue Faraday::ConnectionFailed
       return render json: {
         error: 'connection failed to api.intra.42.fr'
       }, status: :gateway_timeout
     end
 
-    unless payload.success?
+    if !payload.success? && !payload.error.code.in?([404])
       return case payload.error.code
              when 401 then
                render json: {
@@ -53,6 +49,8 @@ class V1::AuthsController < ApplicationController
 
     app_token = app.apps_tokens.create!(user: user)
 
-    render json: { access_token: JsonWebToken.encode(app_token_id: app_token.id) }
+    render json: {
+      access_token: JsonWebToken.encode(app_token_id: app_token.id)
+    }
   end
 end

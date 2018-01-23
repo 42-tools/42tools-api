@@ -3,14 +3,11 @@ class V1::AppsController < ApplicationController
 
   # GET /apps
   def index
-    @apps = App.all
-
-    paginate json: @apps
+    @apps = paginate(App.all)
   end
 
   # GET /apps/1
   def show
-    render json: @app
   end
 
 private

@@ -6,6 +6,7 @@ module CustomErrorsConcern
 
     rescue_from Exception, with: :internal_server_error
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+    rescue_from ActionController::ParameterMissing, with: :parameter_missing
   end
 
   def route_not_found
@@ -15,6 +16,12 @@ module CustomErrorsConcern
   end
 
 private
+
+  def parameter_missing(e)
+    render json: {
+      error: e.message
+    }, status: :bad_request
+  end
 
   def record_not_found
     render json: {

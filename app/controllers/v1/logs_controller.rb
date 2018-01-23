@@ -3,20 +3,21 @@ class V1::LogsController < ApplicationController
 
   # GET /logs
   def index
-    @logs = Log.all
-
-    paginate json: @logs
+    @logs = paginate(logs)
   end
 
   # GET /logs/1
   def show
-    render json: @log
   end
 
 private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_log
-    @log = Log.find(params[:id])
+    @log = logs.find(params[:id])
+  end
+
+  def logs
+    (current_app.admin? ? current_user || current_app : apps_token).logs
   end
 end
