@@ -1,21 +1,12 @@
 class ApplicationController < ActionController::API
   before_action :authenticate_app!
-  before_action :request_logger
 
   include CustomErrorsConcern
 
 private
 
   def apps_token
-    authorization = request.headers['Authorization']
-
-    return if authorization.blank?
-
-    type, credentials = authorization.split(' ')
-
-    return if type != 'Bearer'
-
-    data = JsonWebToken.decode(credentials)&.first
+    data = Bearer.decode(request.headers['Authorization'])
 
     return unless data
 
@@ -40,15 +31,5 @@ private
     render json: {
       error: 'Invalid authentication credentials'
     }, status: :unauthorized unless current_user
-  end
-
-  def request_logger
-    return if params[:controller].match(%r(/auths$))
-
-    apps_token.logs.create!(data: {
-      controller: params[:controller],
-      action: params[:action],
-      params: params.reject { |k, v| k.in?(%w(controller action)) }.as_json
-    })
   end
 end
