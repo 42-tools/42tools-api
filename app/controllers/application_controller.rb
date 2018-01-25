@@ -23,13 +23,23 @@ private
 
   def authenticate_app!
     render json: {
-      error: 'Invalid authentication credentials'
+      error: 'invalid authentication credentials'
     }, status: :unauthorized unless current_app
   end
 
   def authenticate_user!
     render json: {
-      error: 'Invalid authentication credentials'
+      error: 'invalid authentication credentials'
     }, status: :unauthorized unless current_user
+  end
+
+  AppsRole.slugs.keys.each do |slug|
+    class_eval <<-METHODS, __FILE__, __LINE__ + 1
+      def require_app_#{slug}!
+        render json: {
+          error: 'forbidden'
+        }, status: :forbidden unless current_app.#{slug}?
+      end
+    METHODS
   end
 end

@@ -31,13 +31,14 @@ rails g scaffold coalitions name:string slug:string image_url:text color:string 
 rails g scaffold coalitions_users coalition:references user:references
 
 rails g scaffold app name:string
-rails g scaffold apps_token app:references user:references jwt:text
+rails g scaffold apps_token app:references user:references
+rails g model apps_role app:references slug:integer
 
 rails g scaffold friends_user owner:references friend:references
 rails g scaffold friends_group owner:references name:string
 rails g scaffold friends_groups_user friends_group:references friends_user:references
 
-rails g scaffold log kind:integer data:text
+rails g scaffold log linkable:references:polymorphic data:text
 ```
 
 ### Destroy
@@ -52,8 +53,11 @@ rails d scaffold campus_user
 rails d scaffold project
 rails d scaffold projects_user
 rails d scaffold projects_users_cursus
+rails d scaffold coalitions
+rails d scaffold coalitions_users
 rails d scaffold app
 rails d scaffold apps_token
+rails d scaffold apps_role
 rails d scaffold friends_user
 rails d scaffold friends_group
 rails d scaffold friends_groups_user
