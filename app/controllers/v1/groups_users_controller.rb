@@ -3,20 +3,17 @@ class V1::GroupsUsersController < ApplicationController
 
   # GET /groups_users
   def index
-    @groups_users = GroupsUser.all
-
-    paginate json: @groups_users
+    @groups_users = paginate(FortyTwo::GroupsUser.all)
   end
 
   # GET /groups_users/1
   def show
-    render json: @groups_user
   end
 
 private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_groups_user
-    @groups_user = GroupsUser.find(params[:id])
+    @groups_user = FortyTwo::GroupsUser.find(params[:id])
   end
 end

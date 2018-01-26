@@ -15,7 +15,7 @@ class V1::FriendsUsersController < ApplicationController
   def create
     friend_id = params.require(:user_id)
 
-    unless User.exists?(friend_id)
+    unless FortyTwo::User.exists?(friend_id)
       FriendsUserJob.perform_later(current_user.id, friend_id)
 
       return render json: {}, status: :processing

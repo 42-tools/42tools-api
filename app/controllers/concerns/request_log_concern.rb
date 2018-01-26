@@ -6,9 +6,9 @@ module RequestLogConcern
       data = Bearer.decode(payload[:headers]['Authorization'])
 
       if data
-        apps_token = AppsToken.find_by_id(data['app_token_id'])
+        token = Token.find_by_id(data['app_token_id'])
 
-        apps_token.logs.create!(data: {
+        token.logs.create!(data: {
           remote_ip: payload[:headers]['action_dispatch.remote_ip'].to_s,
           controller: payload[:params][:controller],
           action: payload[:params][:action],
@@ -19,7 +19,7 @@ module RequestLogConcern
           db_runtime: payload[:db_runtime],
           started_at: started,
           finished_at: finished
-        }) if apps_token
+        }) if token
       end
     end
   end

@@ -3,9 +3,9 @@ class FriendsGroupsUserJob < ApplicationJob
 
   def perform(owner_id, group_id, friend_id, user_payload = nil)
     if user_payload
-      user_data = JSON.parse(user_payload, object_class: Intra42::DataStruct)
+      user_data = JSON.parse(user_payload, object_class: FortyTwo::Api::DataStruct)
     else
-      user_payload = Intra42.instance.get("/v2/users/#{friend_id}")
+      user_payload = FortyTwo::Api.instance.get("/v2/users/#{friend_id}")
 
       return unless user_payload.success?
 

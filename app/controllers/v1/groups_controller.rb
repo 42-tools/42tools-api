@@ -3,20 +3,17 @@ class V1::GroupsController < ApplicationController
 
   # GET /groups
   def index
-    @groups = Group.all
-
-    paginate json: @groups
+    @groups = paginate(FortyTwo::Group.all)
   end
 
   # GET /groups/1
   def show
-    render json: @group
   end
 
 private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_group
-    @group = Group.find(params[:id])
+    @group = FortyTwo::Group.find(params[:id])
   end
 end

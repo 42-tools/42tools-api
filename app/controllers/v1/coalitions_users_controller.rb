@@ -3,20 +3,17 @@ class V1::CoalitionsUsersController < ApplicationController
 
   # GET /coalitions_users
   def index
-    @coalitions_users = CoalitionsUser.all
-
-    paginate json: @coalitions_users
+    @coalitions_users = paginate(FortyTwo::CoalitionsUser.all)
   end
 
   # GET /coalitions_users/1
   def show
-    render json: @coalitions_user
   end
 
 private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_coalitions_user
-    @coalitions_user = CoalitionsUser.find(params[:id])
+    @coalitions_user = FortyTwo::CoalitionsUser.find(params[:id])
   end
 end

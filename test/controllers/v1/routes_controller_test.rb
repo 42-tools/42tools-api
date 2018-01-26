@@ -5,5 +5,4 @@ class V1::RoutesControllerTest < ActionDispatch::IntegrationTest
     get v1_routes_index_url
     assert_response :success
   end
-
 end

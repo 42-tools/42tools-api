@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   scope format: false do
     namespace :v1 do
       resource :auth, only: %i(create)
-      resources :apps_tokens, only: %i(index show)
+      resources :tokens, only: %i(index show)
       resources :apps, only: %i(index show)
       resources :coalitions_users, only: %i(index show)
       resources :coalitions, only: %i(index show)

@@ -3,20 +3,17 @@ class V1::CampusUsersController < ApplicationController
 
   # GET /campus_users
   def index
-    @campus_users = CampusUser.all
-
-    paginate json: @campus_users
+    @campus_users = paginate(FortyTwo::CampusUser.all)
   end
 
   # GET /campus_users/1
   def show
-    render json: @campus_user
   end
 
 private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_campus_user
-    @campus_user = CampusUser.find(params[:id])
+    @campus_user = FortyTwo::CampusUser.find(params[:id])
   end
 end

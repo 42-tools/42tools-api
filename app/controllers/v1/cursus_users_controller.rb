@@ -3,20 +3,17 @@ class V1::CursusUsersController < ApplicationController
 
   # GET /cursus_users
   def index
-    @cursus_users = CursusUser.all
-
-    paginate json: @cursus_users
+    @cursus_users = paginate(FortyTwo::CursusUser.all)
   end
 
   # GET /cursus_users/1
   def show
-    render json: @cursus_user
   end
 
 private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_cursus_user
-    @cursus_user = CursusUser.find(params[:id])
+    @cursus_user = FortyTwo::CursusUser.find(params[:id])
   end
 end

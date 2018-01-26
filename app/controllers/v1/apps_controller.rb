@@ -3,7 +3,7 @@ class V1::AppsController < ApplicationController
 
   # GET /apps
   def index
-    @apps = paginate(App.all)
+    @apps = paginate(FortyTwo::App.all)
   end
 
   # GET /apps/1
@@ -13,6 +13,6 @@ class V1::AppsController < ApplicationController
 private
   # Use callbacks to share common setup or constraints between actions.
   def set_app
-    @app = App.find(params[:id])
+    @app = FortyTwo::App.find(params[:id])
   end
 end

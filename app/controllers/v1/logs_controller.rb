@@ -18,6 +18,6 @@ private
   end
 
   def logs
-    (current_app.admin? ? current_user || current_app : apps_token).logs
+    (current_app.admin? ? current_user || current_app : app_token).logs
   end
 end
