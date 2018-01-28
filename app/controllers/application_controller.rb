@@ -35,7 +35,7 @@ private
 
   Role.slugs.keys.each do |slug|
     class_eval <<-METHODS, __FILE__, __LINE__ + 1
-      def require_app_#{slug}!
+      def require_role_#{slug}!
         render json: {
           error: 'forbidden'
         }, status: :forbidden unless current_app.#{slug}?

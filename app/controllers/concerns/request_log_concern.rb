@@ -2,7 +2,7 @@ module RequestLogConcern
   extend ActiveSupport::Concern
 
   ActiveSupport::Notifications.subscribe('process_action.action_controller') do |name, started, finished, unique_id, payload|
-    unless payload[:params][:controller].match(%r(^v\d+/auths$))
+    unless payload[:params][:controller].match(%r(^v\d+/auths$|oauth/callback))
       data = Bearer.decode(payload[:headers]['Authorization'])
 
       if data

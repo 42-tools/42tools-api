@@ -38,6 +38,22 @@ class FortyTwo::Api
     end
   end
 
+  def authorize(code:, redirect_uri:)
+    response = Faraday.post('https://api.intra.42.fr/oauth/token', {
+      code: code,
+      client_id: @uid,
+      client_secret: @secret,
+      redirect_uri: redirect_uri,
+      grant_type: :authorization_code
+    })
+
+    status = response.status.in?(200..399) ? :success : :failure
+    data = JSON.parse(response.body, object_class: DataStruct)
+    error = { code: response.status, message: data.error} if response.status > 399
+
+    Response.new(status: status, error: error || {}, body: data)
+  end
+
   def self.instance
     $forty_two_instance ||= self.new(uid: Secrets.get(:forty_two, :client_uid), secret: Secrets.get(:forty_two, :client_secret))
   end

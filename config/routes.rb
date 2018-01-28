@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   root to: redirect('/admin')
 
   scope format: false do
+    namespace :oauth do
+      resources :authorize, only: %i(show)
+      resources :callback, only: %i(show)
+    end
+
     namespace :v1 do
       resource :auth, only: %i(create)
       resources :tokens, only: %i(index show)
