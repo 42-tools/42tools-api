@@ -24,10 +24,11 @@ gem 'jbuilder', '~> 2.7'
 # gem 'rack-cors'
 
 gem 'oauth2', '~> 1.4'
-# gem 'rbnacl', '~> 5.0'
 gem 'rails_admin', '~> 1.2'
-gem 'kaminari', '~> 1.1', '>= 1.1.1'
+
+# Pagination
 gem 'api-pagination', '~> 4.6', '>= 4.6.3'
+gem 'kaminari', '~> 1.1', '>= 1.1.1'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.21.0'
@@ -35,6 +36,8 @@ gem 'pg', '~> 0.21.0'
 group :production do
 
   gem 'redis-rails'
+
+  # Job Asynchrone
   gem 'delayed_job', '~> 4.1', '>= 4.1.3'
   gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.2'
   gem 'daemons', '~> 1.2', '>= 1.2.5'
