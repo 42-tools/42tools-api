@@ -47,7 +47,7 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  config.cache_store = :redis_store, "#{ENV['REDIS_URL']}/42tools-api_#{Rails.env}_cache", { expires_in: 12.hours }
+  config.cache_store = :redis_store, "#{ENV['REDIS_URL']}/42tools-api_#{Rails.env}_cache", { expires_in: 1.hours }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   config.active_job.queue_adapter     = :delayed_job
