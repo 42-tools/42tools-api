@@ -26,6 +26,10 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # Use a real queuing backend for Active Job (and separate queues per environment)
+  config.active_job.queue_adapter     = :delayed_job
+  config.active_job.queue_name_prefix = "42tools-api_#{Rails.env}"
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

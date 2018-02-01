@@ -33,14 +33,14 @@ gem 'kaminari', '~> 1.1', '>= 1.1.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.21.0'
 
+# Job Asynchrone
+gem 'delayed_job', '~> 4.1', '>= 4.1.3'
+gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.2'
+gem 'daemons', '~> 1.2', '>= 1.2.5'
+
 group :production do
 
   gem 'redis-rails'
-
-  # Job Asynchrone
-  gem 'delayed_job', '~> 4.1', '>= 4.1.3'
-  gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.2'
-  gem 'daemons', '~> 1.2', '>= 1.2.5'
 end
 
 group :development, :test do
