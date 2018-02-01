@@ -29,9 +29,10 @@ gem 'rails_admin', '~> 1.2'
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem 'api-pagination', '~> 4.6', '>= 4.6.3'
 
+# Use postgresql as the database for Active Record
+gem 'pg', '~> 0.21.0'
+
 group :production do
-  # Use postgresql as the database for Active Record
-  gem 'pg', '~> 0.21.0'
 
   gem 'redis-rails'
   gem 'delayed_job', '~> 4.1', '>= 4.1.3'
