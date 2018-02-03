@@ -2,15 +2,15 @@ class UserJob < ApplicationJob
   queue_as :user
 
   def perform(user_id = nil, user_payload = nil)
-    if user_payload
-      user_data = JSON.parse(user_payload, object_class: FortyTwo::Api::DataStruct)
-    else
-      user_payload = FortyTwo::Api.instance.get("/v2/users/#{user_id}")
+    user_data = if user_payload
+                  JSON.parse(user_payload, object_class: FortyTwo::Api::DataStruct)
+                else
+                  user_payload = FortyTwo::Api.instance.get("/v2/users/#{user_id}")
 
-      return unless user_payload.success?
+                  return unless user_payload.success?
 
-      user_data = user_payload.body
-    end
+                  user_payload.body
+                end
 
     # User
 
@@ -46,8 +46,9 @@ class UserJob < ApplicationJob
     # Cursus
 
     user_data.cursus_users.each do |data|
-      cursus = FortyTwo::Cursus.find_or_create_by!(id: data.cursus.id)
-      cursus.update(name: data.cursus.name, slug: data.cursus.slug)
+      cursus = FortyTwo::Cursus.find_or_initialize_by(id: data.cursus.id)
+      cursus.assign_attributes(name: data.cursus.name, slug: data.cursus.slug)
+      cursus.save!
 
       cursus_user = user.cursus_users.find_or_initialize_by(id: data.id)
       cursus_user.assign_attributes(cursus: cursus)
@@ -59,18 +60,17 @@ class UserJob < ApplicationJob
     # Campus
 
     user_data.campus.each do |data|
-      campus = FortyTwo::Campus.find_or_create_by!(id: data.id)
-      campus.update(name: data.name)
+      campus = FortyTwo::Campus.find_or_initialize_by(id: data.id)
+      campus.assign_attributes(name: data.name)
+      campus.save!
     end
 
     user_data.campus_users.each do |data|
       campus = FortyTwo::Campus.find_or_create_by!(id: data.campus_id)
 
       campus_user = user.campus_users.find_or_initialize_by(id: data.id)
-      campus_user.assign_attributes(campus: campus)
+      campus_user.assign_attributes(campus: campus, primary: data.is_primary)
       campus_user.save!
-
-      campus_user.update(primary: data.is_primary)
     end
 
     user.campus_users.where(id: user.campus_user_ids - user_data.campus_users.map(&:id)).destroy_all
@@ -79,13 +79,12 @@ class UserJob < ApplicationJob
 
     user_data.projects_users.each do |data|
       project = FortyTwo::Project.find_or_create_by!(id: data.project.id)
-      project.update(name: data.project.name, slug: data.project.slug)
+      project.assign_attributes(name: data.project.name, slug: data.project.slug)
+      project.save!
 
       projects_user = user.projects_users.find_or_initialize_by(id: data.id)
-      projects_user.assign_attributes(project: project)
+      projects_user.assign_attributes(project: project, occurrence: data.occurrence, final_mark: data.final_mark, status: data.status, validated: data.validated?)
       projects_user.save!
-
-      projects_user.update(occurrence: data.occurrence, final_mark: data.final_mark, status: data.status, validated: data.validated?)
 
       data.cursus_ids.map do |id|
         cursus = FortyTwo::Cursus.find_or_create_by!(id: id)
@@ -95,6 +94,8 @@ class UserJob < ApplicationJob
 
       projects_user.projects_users_cursus.where(cursus_id: projects_user.projects_users_cursu_ids - data.cursus_ids).destroy_all
     end
+
+    user.projects_users.where(id: user.projects_user_ids - user_data.projects_users.map(&:id)).destroy_all
 
     # Coalitions
 
