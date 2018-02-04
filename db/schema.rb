@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180203010727) do
+ActiveRecord::Schema.define(version: 20180203012113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -219,6 +219,7 @@ ActiveRecord::Schema.define(version: 20180203010727) do
   add_foreign_key "fortytwo_cursus_users", "fortytwo_users", column: "user_id"
   add_foreign_key "fortytwo_groups_users", "fortytwo_groups", column: "group_id"
   add_foreign_key "fortytwo_groups_users", "fortytwo_users", column: "user_id"
+  add_foreign_key "fortytwo_projects", "fortytwo_projects", column: "parent_id"
   add_foreign_key "fortytwo_projects_users", "fortytwo_projects", column: "project_id"
   add_foreign_key "fortytwo_projects_users", "fortytwo_users", column: "user_id"
   add_foreign_key "fortytwo_projects_users_cursus", "fortytwo_cursus", column: "cursus_id"

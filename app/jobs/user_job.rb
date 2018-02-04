@@ -80,12 +80,14 @@ class UserJob < ApplicationJob
     # Projects
 
     user_data.projects_users.each do |data|
+      project_parent = FortyTwo::Project.find_or_create_by!(id: data.project.parent_id)
       project = FortyTwo::Project.find_or_create_by!(id: data.project.id)
-      project.assign_attributes(name: data.project.name, slug: data.project.slug)
+      project.assign_attributes(parent: project_parent, name: data.project.name, slug: data.project.slug)
       project.save!
 
       projects_user = user.projects_users.find_or_initialize_by(id: data.id)
-      projects_user.assign_attributes(project: project, occurrence: data.occurrence, final_mark: data.final_mark, status: data.status, validated: data.validated?)
+      projects_user.assign_attributes(project: project, occurrence: data.occurrence, final_mark: data.final_mark,
+                                      status: data.status, validated: data.validated?)
       projects_user.save!
 
       data.cursus_ids.map do |id|
