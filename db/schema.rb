@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180129021247) do
+ActiveRecord::Schema.define(version: 20180203010727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,11 @@ ActiveRecord::Schema.define(version: 20180129021247) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "grade"
+    t.integer "level"
+    t.datetime "begin_at"
+    t.datetime "end_at"
+    t.boolean "has_coalition"
     t.index ["cursus_id"], name: "index_fortytwo_cursus_users_on_cursus_id"
     t.index ["user_id"], name: "index_fortytwo_cursus_users_on_user_id"
   end

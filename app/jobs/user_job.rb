@@ -44,6 +44,7 @@ class UserJob < ApplicationJob
     end
 
     # Cursus
+    # TODO: skills
 
     user_data.cursus_users.each do |data|
       cursus = FortyTwo::Cursus.find_or_initialize_by(id: data.cursus.id)
@@ -51,7 +52,8 @@ class UserJob < ApplicationJob
       cursus.save!
 
       cursus_user = user.cursus_users.find_or_initialize_by(id: data.id)
-      cursus_user.assign_attributes(cursus: cursus)
+      cursus_user.assign_attributes(cursus: cursus, grade: data.grade, level: data.level,
+                                    begin_at: data.begin_at, end_at: data.end_at, has_coalition: data.has_coalition)
       cursus_user.save!
     end
 
