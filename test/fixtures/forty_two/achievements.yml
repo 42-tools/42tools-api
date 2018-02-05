@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  tier: MyString
+  kind: MyString
+  visible: false
+  image: MyText
+  nbr_of_success: 1
+  parent: one
+
+two:
+  name: MyString
+  description: MyText
+  tier: MyString
+  kind: MyString
+  visible: false
+  image: MyText
+  nbr_of_success: 1
+  parent: two

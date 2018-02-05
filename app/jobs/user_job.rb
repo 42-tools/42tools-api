@@ -25,7 +25,31 @@ class UserJob < ApplicationJob
     )
     user.save!
 
+    # Titles
+
+    user_data.titles.each do |data|
+      campus = FortyTwo::Title.find_or_initialize_by(id: data.id)
+      campus.assign_attributes(name: data.name)
+      campus.save!
+    end
+
+    user_data.titles_users.each do |data|
+      title = FortyTwo::Title.find_or_create_by!(id: data.title_id)
+
+      titles_user = user.titles_users.find_or_initialize_by(id: data.id)
+      titles_user.assign_attributes(title: title, selected: data.selected)
+      titles_user.save!
+    end
+
+    user.titles_users.where(id: user.titles_user_ids - user_data.titles_users.map(&:id)).destroy_all
+
     # Groups
+
+    user_data.groups.each do |data|
+      campus = FortyTwo::Group.find_or_initialize_by(id: data.id)
+      campus.assign_attributes(name: data.name)
+      campus.save!
+    end
 
     groups_users_payload = FortyTwo::Api.instance.get("/v2/users/#{user_id}/groups_users")
 
@@ -76,6 +100,33 @@ class UserJob < ApplicationJob
     end
 
     user.campus_users.where(id: user.campus_user_ids - user_data.campus_users.map(&:id)).destroy_all
+
+    # Achievements
+    # TODO: titles, parent
+
+    user_data.achievements.each do |data|
+      achievement = FortyTwo::Achievement.find_or_initialize_by(id: data.achievement_id)
+      achievement.assign_attributes(name: data.name, description: data.description, tier: data.tier,
+                                    kind: data.kind, visible: data.visible, image: data.image,
+                                    nbr_of_success: data.nbr_of_success)
+      achievement.save!
+    end
+
+    # achievements_users_payload = FortyTwo::Api.instance.get('/v2/achievements_users', filter: { user_id: user_id })
+    #
+    # if achievements_users_payload.success?
+    #   achievements_users_data = achievements_users_payload.body
+    #
+    #   achievements_users_data.each do |data|
+    #     achievement = FortyTwo::Achievement.find_or_create_by!(id: data.achievement_id)
+    #
+    #     achievements_user = user.achievements_users.find_or_initialize_by(id: data.id)
+    #     achievements_user.assign_attributes(achievement: achievement)
+    #     achievements_user.save!
+    #   end
+    #
+    #   user.achievements_users.where(id: user.achievements_user_ids - achievements_users_data.map(&:id)).destroy_all
+    # end
 
     # Projects
 

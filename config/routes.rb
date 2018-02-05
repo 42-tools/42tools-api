@@ -25,6 +25,10 @@ Rails.application.routes.draw do
       resources :cursus_users, only: %i(index show)
       resources :cursus, only: %i(index show)
       resources :users, only: %i(index show)
+      resources :titles
+      resources :titles_users
+      resources :achievements
+      resources :achievements_users
 
       resources :friends_groups, controller: :friends_groups, as: :friends_group do
         resources :friends, controller: :friends_groups_users, only: %i(index show create destroy)
