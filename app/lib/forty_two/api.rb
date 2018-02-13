@@ -146,6 +146,7 @@ private
 
       if opts[:retry_count] > opts[:max_retries]
         token(force_refresh: true) if body['message'] == 'The access token expired'
+        sleep 1 if e.message.match(%r(Spam Rate Limit Exceeded))
         retry
       end
 
