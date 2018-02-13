@@ -19,19 +19,16 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
-  username: <%= ENV.fetch('DATABASE_USER') { '42tools-api' } %>
-  password: <%= ENV.fetch('DATABASE_PASSWORD') { '42tools-api' } %>
-  host: <%= ENV.fetch('DATABASE_HOST') { '127.0.0.1' } %>
   timeout: 5000
 
 development:
   <<: *default
-  database: 42tools-api_development
+  url: <%= ENV.fetch('DATABASE_URL') { 'postgres://42tools-api:wEiTu52FdB86@127.0.0.1/42tools-api_development' } %>
 
 test:
   <<: *default
-  database: 42tools-api_test
+  url: <%= ENV.fetch('DATABASE_URL') { 'postgres://42tools-api:wEiTu52FdB86@127.0.0.1/42tools-api_test' } %>
 
 production:
   <<: *default
-  database: 42tools-api_production
+  url: <%= ENV['DATABASE_URL'] %>
