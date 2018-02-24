@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180204172339) do
+ActiveRecord::Schema.define(version: 20180219001524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,9 @@ ActiveRecord::Schema.define(version: 20180204172339) do
     t.bigint "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "title_id"
     t.index ["parent_id"], name: "index_fortytwo_achievements_on_parent_id"
+    t.index ["title_id"], name: "index_fortytwo_achievements_on_title_id"
   end
 
   create_table "fortytwo_achievements_users", force: :cascade do |t|
@@ -250,6 +252,7 @@ ActiveRecord::Schema.define(version: 20180204172339) do
   end
 
   add_foreign_key "fortytwo_achievements", "fortytwo_achievements", column: "parent_id"
+  add_foreign_key "fortytwo_achievements", "fortytwo_titles", column: "title_id"
   add_foreign_key "fortytwo_achievements_users", "fortytwo_achievements", column: "achievement_id"
   add_foreign_key "fortytwo_achievements_users", "fortytwo_users", column: "user_id"
   add_foreign_key "fortytwo_campus_users", "fortytwo_campus", column: "campus_id"
