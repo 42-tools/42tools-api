@@ -31,4 +31,12 @@ test:
 
 production:
   <<: *default
+  <% if ENV['DATABASE_URL'].present? %>
   url: <%= ENV['DATABASE_URL'] %>
+  <% else %>
+  database: <%= ENV.fetch('DATABASE_NAME') { '42tools-api_production' } %>
+  username: <%= ENV.fetch('DATABASE_USER') { '42tools-api' } %>
+  password: <%= ENV.fetch('DATABASE_PASSWORD') { '42tools-api' } %>
+  host: <%= ENV.fetch('DATABASE_HOST') { '127.0.0.1' } %>
+  port: <%= ENV.fetch('DATABASE_PORT') { '5432' } %>
+  <% end %>
