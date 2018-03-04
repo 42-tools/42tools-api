@@ -4,6 +4,7 @@ class FortyTwo::User < ApplicationRecord
   has_many :titles_users,       class_name: 'FortyTwo::TitlesUser',       dependent: :destroy
   has_many :groups_users,       class_name: 'FortyTwo::GroupsUser',       dependent: :destroy
   has_many :coalitions_users,   class_name: 'FortyTwo::CoalitionsUser',   dependent: :destroy
+  has_many :coalitions_masters, class_name: 'FortyTwo::Coalition',        foreign_key: :master_id
   has_many :campus_users,       class_name: 'FortyTwo::CampusUser',       dependent: :destroy
   has_many :cursus_users,       class_name: 'FortyTwo::CursusUser',       dependent: :destroy
   has_many :projects_users,     class_name: 'FortyTwo::ProjectsUser',     dependent: :destroy
@@ -17,8 +18,13 @@ class FortyTwo::User < ApplicationRecord
   has_many :campus,       class_name: 'FortyTwo::Campus',       through: :campus_users
   has_many :cursus,       class_name: 'FortyTwo::Cursus',       through: :cursus_users
   has_many :projects,     class_name: 'FortyTwo::Project',      through: :projects_users
+  has_many :coalitions,   class_name: 'FortyTwo::Coalition',    through: :coalitions_users
   has_many :friends,      class_name: 'FriendsUser',            through: :friends_users
   has_many :logs,         class_name: 'Log',                    through: :tokens
+
+  before_destroy do
+    coalitions_masters.update_all(master_id: nil)
+  end
 
   rails_admin do
     object_label_method :login
