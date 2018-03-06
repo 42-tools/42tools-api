@@ -39,14 +39,10 @@ gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.2'
 gem 'daemons', '~> 1.2', '>= 1.2.5'
 
 group :production do
-
   gem 'redis-rails'
 end
 
 group :development, :test do
-  # Use sqlite as the database for Active Record
-  gem 'sqlite3', '~> 1.3', '>= 1.3.13'
-
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i(mri mingw x64_mingw)
 end
