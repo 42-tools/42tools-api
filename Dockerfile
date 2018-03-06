@@ -20,11 +20,7 @@ RUN bundle config build.nokogiri --use-system-librarie && \
     bundle install --quiet --deployment --without development test
 
 COPY . /var/www/htdocs
-RUN chmod 0550 /var/www/htdocs/docker-entrypoint.sh
 
 RUN bundle exec rake assets:precompile
 
 EXPOSE 3000
-
-ENTRYPOINT ["/var/www/htdocs/docker-entrypoint.sh"]
-CMD ["-C", "config/puma.rb"]
