@@ -19,7 +19,7 @@ class FortyTwo::User < ApplicationRecord
   has_many :cursus,       class_name: 'FortyTwo::Cursus',       through: :cursus_users
   has_many :projects,     class_name: 'FortyTwo::Project',      through: :projects_users
   has_many :coalitions,   class_name: 'FortyTwo::Coalition',    through: :coalitions_users
-  has_many :friends,      class_name: 'FriendsUser',            through: :friends_users
+  has_many :friends,      class_name: 'FortyTwo::User',         through: :friends_users
   has_many :logs,         class_name: 'Log',                    through: :tokens
 
   before_destroy do
