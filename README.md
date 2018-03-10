@@ -50,7 +50,7 @@ rails g scaffold forty_two/achievements_users achievement:references user:refere
 
 rails g scaffold forty_two/language name:string identifier:string
 
-rails g scaffold forty_two/campus name:string --force-plural
+rails g scaffold forty_two/campus name:string time_zone:string language:references --force-plural
 rails g scaffold forty_two/campus_user campus:references user:references primary:boolean
 
 rails g scaffold forty_two/project name:string slug:string parent:references
