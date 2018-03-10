@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       resources :titles_users
       resources :achievements
       resources :achievements_users
+      resources :languages, only: %i(index show)
 
       resources :friends_groups, controller: :friends_groups, as: :friends_group do
         resources :friends, controller: :friends_groups_users, only: %i(index show create destroy)

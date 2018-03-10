@@ -48,6 +48,8 @@ rails g scaffold forty_two/groups_user group:references user:references
 rails g scaffold forty_two/achievements name:string description:text tier:string kind:string visible:boolean image:text nbr_of_success:integer parent:references
 rails g scaffold forty_two/achievements_users achievement:references user:references
 
+rails g scaffold forty_two/language name:string identifier:string
+
 rails g scaffold forty_two/campus name:string --force-plural
 rails g scaffold forty_two/campus_user campus:references user:references primary:boolean
 
