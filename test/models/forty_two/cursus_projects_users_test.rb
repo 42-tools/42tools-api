@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FortyTwo::ProjectsUsersCursusTest < ActiveSupport::TestCase
+class FortyTwo::CursusProjectsUsersTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

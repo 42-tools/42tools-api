@@ -55,7 +55,7 @@ rails g scaffold forty_two/campus_user campus:references user:references primary
 
 rails g scaffold forty_two/project name:string slug:string parent:references
 rails g scaffold forty_two/projects_user project:references user:references occurrence:integer final_mark:integer status:string validated:boolean
-rails g scaffold forty_two/projects_users_cursus projects_user:references cursus:references --force-plural
+rails g scaffold forty_two/cursus_projects_user projects_user:references cursus:references --force-plural
 
 rails g scaffold forty_two/coalitions name:string slug:string image_url:text color:string score:integer master:references
 rails g scaffold forty_two/coalitions_users coalition:references user:references

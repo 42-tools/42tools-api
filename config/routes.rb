@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       resources :apps, only: %i(index show)
       resources :coalitions_users, only: %i(index show)
       resources :coalitions, only: %i(index show)
-      resources :projects_users_cursus, only: %i(index show)
+      resources :cursus_projects_users, only: %i(index show)
       resources :projects_users, only: %i(index show)
       resources :projects, only: %i(index show)
       resources :campus_users, only: %i(index show)

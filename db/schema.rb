@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180309212149) do
+ActiveRecord::Schema.define(version: 20180309215615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,15 @@ ActiveRecord::Schema.define(version: 20180309212149) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "fortytwo_cursus_projects_users", force: :cascade do |t|
+    t.bigint "projects_user_id"
+    t.bigint "cursus_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cursus_id"], name: "index_fortytwo_cursus_projects_users_on_cursus_id"
+    t.index ["projects_user_id"], name: "index_fortytwo_cursus_projects_users_on_projects_user_id"
+  end
+
   create_table "fortytwo_cursus_users", force: :cascade do |t|
     t.bigint "cursus_id"
     t.bigint "user_id"
@@ -166,15 +175,6 @@ ActiveRecord::Schema.define(version: 20180309212149) do
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_fortytwo_projects_users_on_project_id"
     t.index ["user_id"], name: "index_fortytwo_projects_users_on_user_id"
-  end
-
-  create_table "fortytwo_projects_users_cursus", force: :cascade do |t|
-    t.bigint "projects_user_id"
-    t.bigint "cursus_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cursus_id"], name: "index_fortytwo_projects_users_cursus_on_cursus_id"
-    t.index ["projects_user_id"], name: "index_fortytwo_projects_users_cursus_on_projects_user_id"
   end
 
   create_table "fortytwo_titles", force: :cascade do |t|
@@ -271,6 +271,8 @@ ActiveRecord::Schema.define(version: 20180309212149) do
   add_foreign_key "fortytwo_coalitions", "fortytwo_users", column: "master_id"
   add_foreign_key "fortytwo_coalitions_users", "fortytwo_coalitions", column: "coalition_id"
   add_foreign_key "fortytwo_coalitions_users", "fortytwo_users", column: "user_id"
+  add_foreign_key "fortytwo_cursus_projects_users", "fortytwo_cursus", column: "cursus_id"
+  add_foreign_key "fortytwo_cursus_projects_users", "fortytwo_projects_users", column: "projects_user_id"
   add_foreign_key "fortytwo_cursus_users", "fortytwo_cursus", column: "cursus_id"
   add_foreign_key "fortytwo_cursus_users", "fortytwo_users", column: "user_id"
   add_foreign_key "fortytwo_groups_users", "fortytwo_groups", column: "group_id"
@@ -278,8 +280,6 @@ ActiveRecord::Schema.define(version: 20180309212149) do
   add_foreign_key "fortytwo_projects", "fortytwo_projects", column: "parent_id"
   add_foreign_key "fortytwo_projects_users", "fortytwo_projects", column: "project_id"
   add_foreign_key "fortytwo_projects_users", "fortytwo_users", column: "user_id"
-  add_foreign_key "fortytwo_projects_users_cursus", "fortytwo_cursus", column: "cursus_id"
-  add_foreign_key "fortytwo_projects_users_cursus", "fortytwo_projects_users", column: "projects_user_id"
   add_foreign_key "fortytwo_titles_users", "fortytwo_titles", column: "title_id"
   add_foreign_key "fortytwo_titles_users", "fortytwo_users", column: "user_id"
   add_foreign_key "friends_groups", "fortytwo_users", column: "owner_id"
