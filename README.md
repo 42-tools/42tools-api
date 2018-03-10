@@ -45,8 +45,8 @@ rails g scaffold forty_two/titles_user title:references user:references selected
 rails g scaffold forty_two/group name:string
 rails g scaffold forty_two/groups_user group:references user:references
 
-rails g scaffold forty_two/achievements name:string description:text tier:string kind:string visible:boolean image:text nbr_of_success:integer parent:references
-rails g scaffold forty_two/achievements_users achievement:references user:references
+rails g scaffold forty_two/achievement name:string description:text tier:string kind:string visible:boolean image:text nbr_of_success:integer parent:references
+rails g scaffold forty_two/achievements_user achievement:references user:references
 
 rails g scaffold forty_two/language name:string identifier:string
 
@@ -57,8 +57,8 @@ rails g scaffold forty_two/project name:string slug:string parent:references
 rails g scaffold forty_two/projects_user project:references user:references occurrence:integer final_mark:integer status:string validated:boolean
 rails g scaffold forty_two/cursus_projects_user projects_user:references cursus:references --force-plural
 
-rails g scaffold forty_two/coalitions name:string slug:string image_url:text color:string score:integer master:references
-rails g scaffold forty_two/coalitions_users coalition:references user:references
+rails g scaffold forty_two/coalition name:string slug:string image_url:text color:string score:integer master:references
+rails g scaffold forty_two/coalitions_user coalition:references user:references
 
 rails g scaffold forty_two/app name:string uid:string secret:string
 rails g scaffold token app:references user:references
