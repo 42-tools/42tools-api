@@ -142,12 +142,12 @@ class UserJob < ApplicationJob
       projects_user.save!
 
       data.cursus_ids.map do |id|
-        cursus = FortyTwo::Cursus.find_or_create_by!(id: id)
+        FortyTwo::Cursus.find_or_create_by!(id: id)
 
-        projects_user.cursus_projects_users.find_or_create_by!(cursus: cursus)
+        projects_user.cursus.find_or_create_by!(id: id)
       end
 
-      projects_user.cursus_projects_users.where(cursus_id: projects_user.cursus_projects_users_ids - data.cursus_ids).destroy_all
+      projects_user.cursus.where(id: projects_user.cursu_ids - data.cursus_ids).destroy_all
     end
 
     user.projects_users.where(id: user.projects_user_ids - user_data.projects_users.map(&:id)).destroy_all
