@@ -24,10 +24,10 @@ Rails.application.routes.draw do
       resources :cursus_users, only: %i(index show)
       resources :cursus, only: %i(index show)
       resources :users, only: %i(index show)
-      resources :titles
-      resources :titles_users
-      resources :achievements
-      resources :achievements_users
+      resources :titles, only: %i(index show)
+      resources :titles_users, only: %i(index show)
+      resources :achievements, only: %i(index show)
+      resources :achievements_users, only: %i(index show)
       resources :languages, only: %i(index show)
       resources :roles, only: %i(index show)
 
