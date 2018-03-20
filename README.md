@@ -49,6 +49,7 @@ rails g scaffold forty_two/achievement name:string description:text tier:string 
 rails g scaffold forty_two/achievements_user achievement:references user:references
 
 rails g scaffold forty_two/language name:string identifier:string
+rails g scaffold forty_two/languages_user language:references user:references position:integer
 
 rails g scaffold forty_two/campus name:string time_zone:string language:references --force-plural
 rails g scaffold forty_two/campus_user campus:references user:references primary:boolean

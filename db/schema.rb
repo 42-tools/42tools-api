@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180313230630) do
+ActiveRecord::Schema.define(version: 20180320162559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,16 @@ ActiveRecord::Schema.define(version: 20180313230630) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "fortytwo_languages_users", force: :cascade do |t|
+    t.bigint "language_id"
+    t.bigint "user_id"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_fortytwo_languages_users_on_language_id"
+    t.index ["user_id"], name: "index_fortytwo_languages_users_on_user_id"
+  end
+
   create_table "fortytwo_projects", force: :cascade do |t|
     t.string "name"
     t.string "slug"
@@ -284,6 +294,8 @@ ActiveRecord::Schema.define(version: 20180313230630) do
   add_foreign_key "fortytwo_cursus_users", "fortytwo_users", column: "user_id"
   add_foreign_key "fortytwo_groups_users", "fortytwo_groups", column: "group_id"
   add_foreign_key "fortytwo_groups_users", "fortytwo_users", column: "user_id"
+  add_foreign_key "fortytwo_languages_users", "fortytwo_languages", column: "language_id"
+  add_foreign_key "fortytwo_languages_users", "fortytwo_users", column: "user_id"
   add_foreign_key "fortytwo_projects", "fortytwo_projects", column: "parent_id"
   add_foreign_key "fortytwo_projects_users", "fortytwo_projects", column: "project_id"
   add_foreign_key "fortytwo_projects_users", "fortytwo_users", column: "user_id"

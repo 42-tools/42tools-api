@@ -8,6 +8,7 @@ class FortyTwo::User < ApplicationRecord
   has_many :campus_users,       class_name: 'FortyTwo::CampusUser',       dependent: :destroy
   has_many :cursus_users,       class_name: 'FortyTwo::CursusUser',       dependent: :destroy
   has_many :projects_users,     class_name: 'FortyTwo::ProjectsUser',     dependent: :destroy
+  has_many :languages_users,    class_name: 'FortyTwo::LanguagesUser',    dependent: :destroy
   has_many :friends_users,      class_name: 'FriendsUser',                foreign_key: :owner_id, dependent: :destroy
   has_many :friends_groups,     class_name: 'FriendsGroup',               foreign_key: :owner_id, dependent: :destroy
 
@@ -19,6 +20,7 @@ class FortyTwo::User < ApplicationRecord
   has_many :cursus,       class_name: 'FortyTwo::Cursus',       through: :cursus_users
   has_many :projects,     class_name: 'FortyTwo::Project',      through: :projects_users
   has_many :coalitions,   class_name: 'FortyTwo::Coalition',    through: :coalitions_users
+  has_many :languages,    class_name: 'FortyTwo::Languages',    through: :languages_users
   has_many :friends,      class_name: 'FortyTwo::User',         through: :friends_users
   has_many :logs,         class_name: 'Log',                    through: :tokens
 

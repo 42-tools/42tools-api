@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  language: one
+  user: one
+  position: 1
+
+two:
+  language: two
+  user: two
+  position: 1
