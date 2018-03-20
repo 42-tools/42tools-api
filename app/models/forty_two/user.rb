@@ -9,6 +9,7 @@ class FortyTwo::User < ApplicationRecord
   has_many :cursus_users,       class_name: 'FortyTwo::CursusUser',       dependent: :destroy
   has_many :projects_users,     class_name: 'FortyTwo::ProjectsUser',     dependent: :destroy
   has_many :languages_users,    class_name: 'FortyTwo::LanguagesUser',    dependent: :destroy
+  has_many :apps_owners,        class_name: 'FortyTwo::App',              foreign_key: :owner_id
   has_many :friends_users,      class_name: 'FriendsUser',                foreign_key: :owner_id, dependent: :destroy
   has_many :friends_groups,     class_name: 'FriendsGroup',               foreign_key: :owner_id, dependent: :destroy
 
@@ -24,8 +25,9 @@ class FortyTwo::User < ApplicationRecord
   has_many :friends,      class_name: 'FortyTwo::User',         through: :friends_users
   has_many :logs,         class_name: 'Log',                    through: :tokens
 
-  before_destroy do
-    coalitions_masters.update_all(master_id: nil)
+  before_destroy do |record|
+    record.coalitions_masters.update_all(master_id: nil)
+    record.apps_owners.update_all(master_id: nil)
   end
 
   rails_admin do
