@@ -61,9 +61,10 @@ rails g scaffold forty_two/cursus_projects_user projects_user:references cursus:
 rails g scaffold forty_two/coalition name:string slug:string image_url:text color:string score:integer master:references
 rails g scaffold forty_two/coalitions_user coalition:references user:references
 
+rails g model forty_two/roles name:string description:text
 rails g scaffold forty_two/app name:string uid:string secret:string
+rails g model forty_two/roles_apps role:references app:references
 rails g scaffold token app:references user:references
-rails g model role app:references slug:integer
 
 rails g scaffold friends_user owner:references friend:references
 rails g scaffold friends_group owner:references name:string

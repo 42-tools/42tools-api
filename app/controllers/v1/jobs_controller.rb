@@ -1,5 +1,6 @@
 class V1::JobsController < ApplicationController
-  before_action :require_role_admin!
+  before_action :local_app!
+  before_action :owner_app!
   before_action :set_job, only: %i(show update destroy)
 
   # GET /jobs

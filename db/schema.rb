@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180320162559) do
+ActiveRecord::Schema.define(version: 20180506122859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,6 +194,15 @@ ActiveRecord::Schema.define(version: 20180320162559) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "fortytwo_roles_apps", force: :cascade do |t|
+    t.bigint "role_id"
+    t.bigint "app_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id"], name: "index_fortytwo_roles_apps_on_app_id"
+    t.index ["role_id"], name: "index_fortytwo_roles_apps_on_role_id"
+  end
+
   create_table "fortytwo_titles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -261,14 +270,6 @@ ActiveRecord::Schema.define(version: 20180320162559) do
     t.index ["linkable_type", "linkable_id"], name: "index_logs_on_linkable_type_and_linkable_id"
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.bigint "app_id"
-    t.integer "slug"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["app_id"], name: "index_roles_on_app_id"
-  end
-
   create_table "tokens", force: :cascade do |t|
     t.bigint "app_id"
     t.bigint "user_id"
@@ -299,6 +300,8 @@ ActiveRecord::Schema.define(version: 20180320162559) do
   add_foreign_key "fortytwo_projects", "fortytwo_projects", column: "parent_id"
   add_foreign_key "fortytwo_projects_users", "fortytwo_projects", column: "project_id"
   add_foreign_key "fortytwo_projects_users", "fortytwo_users", column: "user_id"
+  add_foreign_key "fortytwo_roles_apps", "fortytwo_apps", column: "app_id"
+  add_foreign_key "fortytwo_roles_apps", "fortytwo_roles", column: "role_id"
   add_foreign_key "fortytwo_titles_users", "fortytwo_titles", column: "title_id"
   add_foreign_key "fortytwo_titles_users", "fortytwo_users", column: "user_id"
   add_foreign_key "friends_groups", "fortytwo_users", column: "owner_id"
@@ -306,7 +309,6 @@ ActiveRecord::Schema.define(version: 20180320162559) do
   add_foreign_key "friends_groups_users", "friends_users"
   add_foreign_key "friends_users", "fortytwo_users", column: "friend_id"
   add_foreign_key "friends_users", "fortytwo_users", column: "owner_id"
-  add_foreign_key "roles", "fortytwo_apps", column: "app_id"
   add_foreign_key "tokens", "fortytwo_apps", column: "app_id"
   add_foreign_key "tokens", "fortytwo_users", column: "user_id"
 end

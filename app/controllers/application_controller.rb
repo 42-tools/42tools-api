@@ -33,13 +33,15 @@ private
     }, status: :unauthorized unless current_user
   end
 
-  Role.slugs.keys.each do |slug|
-    class_eval <<-METHODS, __FILE__, __LINE__ + 1
-      def require_role_#{slug}!
-        render json: {
-          error: 'forbidden'
-        }, status: :forbidden unless current_app.#{slug}?
-      end
-    METHODS
+  def local_app!
+    render json: {
+      error: 'forbidden'
+    }, status: :forbidden unless current_app.local?
+  end
+
+  def owner_app!
+    render json: {
+      error: 'forbidden'
+    }, status: :forbidden if !current_user || current_app.owner == current_user
   end
 end
