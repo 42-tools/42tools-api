@@ -39,6 +39,7 @@ gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.2'
 gem 'daemons', '~> 1.2', '>= 1.2.5'
 
 group :production do
+  gem 'elastic-apm'
   gem 'redis-rails'
 end
 
