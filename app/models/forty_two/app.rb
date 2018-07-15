@@ -1,4 +1,6 @@
 class FortyTwo::App < ApplicationRecord
+  serialize :scopes, Array
+
   belongs_to :owner, class_name: 'FortyTwo::User'
 
   has_and_belongs_to_many :roles, class_name: 'FortyTwo::Role', dependent: :destroy

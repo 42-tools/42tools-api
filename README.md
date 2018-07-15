@@ -62,7 +62,7 @@ rails g scaffold forty_two/coalition name:string slug:string image_url:text colo
 rails g scaffold forty_two/coalitions_user coalition:references user:references
 
 rails g model forty_two/roles name:string description:text
-rails g scaffold forty_two/app name:string uid:string secret:string
+rails g scaffold forty_two/app name:string uid:string secret:string description:text website:string image:string public:boolean scopes:text
 rails g model forty_two/roles_apps role:references app:references
 rails g scaffold token app:references user:references
 

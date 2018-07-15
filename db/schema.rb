@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180506122859) do
+ActiveRecord::Schema.define(version: 20180715152939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,11 @@ ActiveRecord::Schema.define(version: 20180506122859) do
     t.datetime "updated_at", null: false
     t.string "uid"
     t.string "secret"
+    t.text "description"
+    t.string "website"
+    t.string "image_url"
+    t.boolean "public"
+    t.text "scopes"
   end
 
   create_table "fortytwo_campus", force: :cascade do |t|
