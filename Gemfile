@@ -40,6 +40,7 @@ gem 'daemons', '~> 1.2', '>= 1.2.5'
 
 group :production do
   gem 'redis-rails'
+  gem 'elastic-apm', '~> 2.8'
 end
 
 group :development, :test do
