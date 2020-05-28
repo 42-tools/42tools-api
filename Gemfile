@@ -28,7 +28,7 @@ gem 'rails_admin', '~> 1.2'
 
 # Pagination
 gem 'api-pagination', '~> 4.6', '>= 4.6.3'
-gem 'kaminari', '~> 1.1', '>= 1.1.1'
+gem 'kaminari', '~> 1.2'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.21.0'
