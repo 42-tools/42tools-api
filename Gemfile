@@ -24,7 +24,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'rack-cors'
 
 gem 'oauth2', '~> 1.4'
-gem 'rails_admin', '~> 1.2'
+gem 'rails_admin', '~> 1.4'
 
 # Pagination
 gem 'api-pagination', '~> 4.6', '>= 4.6.3'
